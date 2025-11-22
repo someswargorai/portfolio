@@ -28,9 +28,12 @@ const dockSlice = createSlice({
     },
     settingsToggle:(state)=>{
       state.settings = !state.settings;
+    },
+    finderToggle:(state)=>{
+      state.finder = !state.finder;
     }
   },
 });
 
-export const { safariToggle,TerminalToggle,ContactToggle,resumeToggle, settingsToggle } = dockSlice.actions;
+export const { safariToggle,TerminalToggle,ContactToggle,resumeToggle, settingsToggle,finderToggle } = dockSlice.actions;
 export default dockSlice.reducer;

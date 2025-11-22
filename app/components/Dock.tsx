@@ -1,7 +1,7 @@
 "use client";
 
 import { useAppDispatch } from "@/redux/hooks/hook";
-import { ContactToggle, safariToggle, settingsToggle, TerminalToggle } from "@/redux/slices/dockSlice";
+import { ContactToggle, finderToggle, safariToggle, settingsToggle, TerminalToggle } from "@/redux/slices/dockSlice";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -27,6 +27,8 @@ export default function Dock() {
       dispatch(ContactToggle());
     }else if (app.name === "Settings") {
       dispatch(settingsToggle());
+    }else if (app.name === "Finder") {
+      dispatch(finderToggle());
     }
   };
   return (
