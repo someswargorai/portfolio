@@ -37,12 +37,6 @@ export default function MacMenuBar() {
 
           <div className="hidden md:flex items-center gap-6">
           
-            <span
-              className="text-gray-800 hover:text-black cursor-pointer"
-              onClick={() => dispatch(ContactToggle())}
-            >
-              Contact
-            </span>
             <span className="text-gray-800 hover:text-black cursor-pointer" onClick={()=>dispatch(resumeToggle())}>
               Resume
             </span>
@@ -65,7 +59,7 @@ export default function MacMenuBar() {
             })}
           </span>
 
-          <User size={16} className="hidden sm:block" />
+          <User size={16} className="hidden sm:block cursor-pointer" onClick={()=>dispatch(ContactToggle())}/>
         </div>
       </nav>
     </div>
