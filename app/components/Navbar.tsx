@@ -1,7 +1,7 @@
 "use client";
 import { useAppDispatch } from "@/redux/hooks/hook";
 import { ContactToggle, resumeToggle } from "@/redux/slices/dockSlice";
-import { Battery, Search, User, Wifi } from "lucide-react";
+import { BatteryFull, Search, User, Wifi } from "lucide-react";
 import Image from "next/image";
 
 export default function MacMenuBar() {
@@ -46,7 +46,7 @@ export default function MacMenuBar() {
         <div className="flex items-center gap-3 text-black">
           <Wifi size={16} className="hidden sm:block" />
           <Search size={16} className="hidden sm:block" />
-          <Battery size={16} className="hidden sm:block" />
+          <BatteryFull size={16} className="hidden sm:block" />
 
           <span className="ml-1 text-xs sm:text-sm">
             {new Date().toLocaleString("en-US", {

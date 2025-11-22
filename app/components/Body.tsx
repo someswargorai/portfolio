@@ -1,4 +1,8 @@
+import { useAppSelector } from "@/redux/hooks/hook";
+
 export default function Body() {
+  const { wallpaper } = useAppSelector((state) => state.wallpaper);
+
   return (
     <div
       className="
@@ -9,6 +13,11 @@ export default function Body() {
         bg-gradient-to-b from-white to-[#eceaff]
         relative
       "
+      style={{
+        backgroundImage: `url(${wallpaper})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
       <div className="absolute top-32 w-72 h-72 bg-purple-200/40 rounded-full blur-[150px]"></div>
 

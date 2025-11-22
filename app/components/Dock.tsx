@@ -1,7 +1,7 @@
 "use client";
 
 import { useAppDispatch } from "@/redux/hooks/hook";
-import { ContactToggle, safariToggle, TerminalToggle } from "@/redux/slices/dockSlice";
+import { ContactToggle, safariToggle, settingsToggle, TerminalToggle } from "@/redux/slices/dockSlice";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -11,7 +11,7 @@ const apps = [
   { src: "/public/images/photos.png", name: "Photos" },
   { src: "/public/images/contact.png", name: "Contacts" },
   { src: "/public/images/terminal.png", name: "Terminal" },
-  { src: "/public/images/trash.png", name: "Trash" },
+  { src: "/public/images/settings.png", name: "Settings" },
 ];
 
 export default function Dock() {
@@ -25,6 +25,8 @@ export default function Dock() {
       dispatch(TerminalToggle());
     }else if (app.name === "Contacts") {
       dispatch(ContactToggle());
+    }else if (app.name === "Settings") {
+      dispatch(settingsToggle());
     }
   };
   return (
@@ -55,7 +57,7 @@ export default function Dock() {
               width={60}
               height={60}
               className={`
-                transition-all duration-300 ease-out
+                transition-all duration-300 ease-out rounded-lg
                 ${
                   isHovered
                     ? "scale-125 -translate-y-3"

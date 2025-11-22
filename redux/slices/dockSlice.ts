@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   safari: false,
-  trash: false,
+  settings: false,
   finder: false,
   contact: false,
   terminal: false,
@@ -25,9 +25,12 @@ const dockSlice = createSlice({
     },
     resumeToggle:(state)=>{
       state.resume = !state.resume;
+    },
+    settingsToggle:(state)=>{
+      state.settings = !state.settings;
     }
   },
 });
 
-export const { safariToggle,TerminalToggle,ContactToggle,resumeToggle } = dockSlice.actions;
+export const { safariToggle,TerminalToggle,ContactToggle,resumeToggle, settingsToggle } = dockSlice.actions;
 export default dockSlice.reducer;

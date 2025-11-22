@@ -9,10 +9,11 @@ import SafariWindow from "./components/SafariWindow";
 import TerminalWindow from "./components/TerminalWindow";
 import Contacts from "./components/Contacts";
 import ResumeWindow from "./components/Resume";
+import SettingsWindow from "./components/SettingsWindow";
 
 export default function Home() {
 
-  const {safari, terminal,contact, resume}= useAppSelector(state=>state.dock);
+  const {safari, terminal,contact, resume, settings}= useAppSelector(state=>state.dock);
 
   return (
     <div className="h-screen overflow-none">
@@ -23,6 +24,7 @@ export default function Home() {
       {terminal && <TerminalWindow/>}
       {contact && <Contacts/>}
       {resume && <ResumeWindow/>}
+      {settings && <SettingsWindow/>}
     </div>
   );
 }
