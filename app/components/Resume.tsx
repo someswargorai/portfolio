@@ -42,13 +42,21 @@ export default function ResumeWindow() {
   return (
     <div
       className="fixed bg-white rounded-xl shadow-2xl border z-100"
-      style={{ top: `${top}px`, left: `${left}px`, width: "900px", height: "600px" }}
+      style={{
+        top: `${top}px`,
+        left: `${left}px`,
+        width: "900px",
+        height: "600px",
+      }}
     >
       <div
         className="flex items-center gap-2 bg-gray-100 px-4 py-3 cursor-move border-b"
         onMouseDown={onMouseDown}
       >
-        <div className="w-3 h-3 rounded-full bg-red-500 cursor-pointer" onClick={closeWindow}></div>
+        <div
+          className="w-3 h-3 rounded-full bg-red-500 cursor-pointer"
+          onClick={closeWindow}
+        ></div>
         <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
         <div className="w-3 h-3 rounded-full bg-green-500"></div>
 
@@ -57,23 +65,22 @@ export default function ResumeWindow() {
 
       <div className="flex gap-6 px-6 pt-4 border-b text-sm font-medium">
         <button
-          className={`${activeTab === "resume" ? "text-blue-600" : "text-gray-500"} hover:text-black`}
+          className={`${
+            activeTab === "resume" ? "text-blue-600" : "text-gray-500"
+          } hover:text-black cursor-pointer`}
           onClick={() => setActiveTab("resume")}
         >
           Resume
         </button>
         <button
-          className={`${activeTab === "projects" ? "text-blue-600" : "text-gray-500"} hover:text-black`}
+          className={`${
+            activeTab === "projects" ? "text-blue-600" : "text-gray-500"
+          } hover:text-black cursor-pointer`}
           onClick={() => setActiveTab("projects")}
         >
           Projects
         </button>
-        <button
-          className={`${activeTab === "skills" ? "text-blue-600" : "text-gray-500"} hover:text-black`}
-          onClick={() => setActiveTab("skills")}
-        >
-          Skills
-        </button>
+     
       </div>
 
       <div className="p-4 overflow-y-auto h-[calc(100%-120px)]">
@@ -86,21 +93,104 @@ export default function ResumeWindow() {
         )}
 
         {activeTab === "projects" && (
-          <ul className="space-y-3 text-gray-700">
-            <li>• GetIRNow — Investment Platform</li>
-            <li>• BikeMart — eCommerce Website</li>
-            <li>• Chatter Box — Real-time Chat App</li>
-            <li>• Node-Data-Cryption — NPM Package</li>
-          </ul>
-        )}
+          <div className="space-y-6">
+            {/* BikeMart */}
+            <div className="p-5 rounded-xl border bg-gray-100 hover:shadow-md transition">
+              <h3 className="text-lg font-semibold mb-1 text-gray-900">
+                BikeMart
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                An eCommerce website for buying and selling bikes, built with
+                React, Express, and MongoDB. Features include user
+                authentication, product listings, cart management, and secure
+                checkout.
+              </p>
 
-        {activeTab === "skills" && (
-          <ul className="space-y-2 text-gray-700">
-            <li>Frontend: React, Next.js, TypeScript, Tailwind</li>
-            <li>Backend: Express.js, Node.js</li>
-            <li>Database: MongoDB, MySQL</li>
-            <li>Tools: Docker, Git, Postman, JIRA</li>
-          </ul>
+              <div className="flex flex-wrap gap-2 mt-3">
+                {["React", "Redux", "Express", "MongoDB"].map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-medium"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              <a
+                href="https://ecommerce-frontend-blond-tau.vercel.app"
+                target="_blank"
+                className="inline-block mt-4 text-sm text-blue-600 font-medium hover:underline"
+              >
+                🔗 Visit Project
+              </a>
+            </div>
+
+            {/* Chatter Box */}
+            <div className="p-5 rounded-xl border bg-gray-50 hover:shadow-md transition">
+              <h3 className="text-lg font-semibold mb-1 text-gray-900">
+                Chatter Box
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                A full-stack real-time chat application using Socket.io, React,
+                and Node.js — featuring user authentication, online/offline
+                status, profile image upload, and broadcast messaging with a
+                modern MUI interface.
+              </p>
+
+              <div className="flex flex-wrap gap-2 mt-3">
+                {["React", "Socket.io", "Node.js"].map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs font-medium"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              <a
+                href="https://ping-me-frontend.vercel.app"
+                target="_blank"
+                className="inline-block mt-4 text-sm text-blue-600 font-medium hover:underline"
+              >
+                🔗 Visit Project
+              </a>
+            </div>
+
+            {/* Portfolio */}
+            <div className="p-5 rounded-xl border bg-gray-50 hover:shadow-md transition">
+              <h3 className="text-lg font-semibold mb-1 text-gray-900">
+                Portfolio Website
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                Personal portfolio website built to showcase skills, projects,
+                blogs and an interactive macOS-style UI that includes draggable
+                windows and dock animations.
+              </p>
+
+              <div className="flex flex-wrap gap-2 mt-3">
+                {["Next.js", "Tailwind", "Redux", "Framer Motion"].map(
+                  (tech) => (
+                    <span
+                      key={tech}
+                      className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium"
+                    >
+                      {tech}
+                    </span>
+                  )
+                )}
+              </div>
+
+              <a
+                href="https://portfolio-rho-pied-bftkib754x.vercel.app"
+                target="_blank"
+                className="inline-block mt-4 text-sm text-blue-600 font-medium hover:underline"
+              >
+                🔗 Visit Portfolio
+              </a>
+            </div>
+          </div>
         )}
       </div>
     </div>

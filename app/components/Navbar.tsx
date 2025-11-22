@@ -36,9 +36,7 @@ export default function MacMenuBar() {
           </span>
 
           <div className="hidden md:flex items-center gap-6">
-            <span className="text-gray-800 hover:text-black cursor-pointer">
-              Projects
-            </span>
+          
             <span
               className="text-gray-800 hover:text-black cursor-pointer"
               onClick={() => dispatch(ContactToggle())}
