@@ -1,7 +1,83 @@
-import { useAppSelector } from "@/redux/hooks/hook";
+"use client";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hook";
+import { finderToggle } from "@/redux/slices/dockSlice";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Body() {
   const { wallpaper } = useAppSelector((state) => state.wallpaper);
+  const dispatch = useAppDispatch();
+
+  // 🔥 Reusable drag states for 3 icons
+  const [icons, setIcons] = useState({
+    projects: { top: 280, right: 48, dragging: false, offset: { x: 0, y: 0 } },
+    getirnow: { top: 40, right: 40, dragging: false, offset: { x: 0, y: 0 } },
+    pingme: { top: 160, right: 40, dragging: false, offset: { x: 0, y: 0 } },
+  });
+
+  // 🔥 Start dragging
+  const onMouseDownIcon = (
+    e: React.MouseEvent<HTMLDivElement>,
+    key: keyof typeof icons
+  ) => {
+    e.preventDefault();
+    setIcons((prev) => ({
+      ...prev,
+      [key]: {
+        ...prev[key],
+        dragging: true,
+        offset: {
+          x: window.innerWidth - e.clientX - prev[key].right,
+          y: e.clientY - prev[key].top,
+        },
+      },
+    }));
+  };
+
+  // 🔥 Drag move & stop listeners
+  useEffect(() => {
+    const mouseup = () => {
+      setIcons((prev) => {
+        const updated = { ...prev };
+        (Object.keys(updated) as (keyof typeof updated)[]).forEach((k) => {
+          updated[k].dragging = false;
+        });
+
+        return updated;
+      });
+    };
+
+    const mousemove = (e: MouseEvent) => {
+      setIcons((prev) => {
+        const updated = { ...prev };
+
+        (Object.keys(updated) as (keyof typeof icons)[]).forEach((key) => {
+          if (!updated[key].dragging) return;
+
+          const newTop = e.clientY - updated[key].offset.y;
+          const newRight =
+            window.innerWidth - e.clientX - updated[key].offset.x;
+
+          // constraints
+          const maxTop = window.innerHeight - 0;
+          const maxRight = window.innerWidth - 0;
+
+          updated[key].top = Math.max(0, Math.min(maxTop, newTop));
+          updated[key].right = Math.max(0, Math.min(maxRight, newRight));
+        });
+
+        return updated;
+      });
+    };
+
+    window.addEventListener("mousemove", mousemove);
+    window.addEventListener("mouseup", mouseup);
+
+    return () => {
+      window.removeEventListener("mousemove", mousemove);
+      window.removeEventListener("mouseup", mouseup);
+    };
+  }, []);
 
   return (
     <div
@@ -59,18 +135,56 @@ export default function Body() {
         experiences — delivering creative ideas into production-ready results.
       </p>
 
+      {/* ICON 1 — getirnow PRD */}
+      <div
+        className="absolute cursor-grab flex items-center flex-col"
+        style={{
+          top: icons.getirnow.top,
+          right: icons.getirnow.right,
+        }}
+        onMouseDown={(e) => onMouseDownIcon(e, "getirnow")}
+      >
+        <Image src="/public/images/txt.png" alt="" width={50} height={50} />
+        <span className="text-[12px] mt-2 font-medium text-gray-700 text-center">
+          getirnow PRD
+        </span>
+      </div>
+
+      {/* ICON 2 — pingME PRD */}
+      <div
+        className="absolute cursor-grab flex items-center flex-col"
+        style={{
+          top: icons.pingme.top,
+          right: icons.pingme.right,
+        }}
+        onMouseDown={(e) => onMouseDownIcon(e, "pingme")}
+      >
+        <Image src="/public/images/txt.png" alt="" width={50} height={50} />
+        <span className="text-[12px] mt-2 font-medium text-gray-700 text-center">
+          pingME PRD
+        </span>
+      </div>
+
+      {/* ICON 3 — projects folder */}
+      <div
+        className="absolute cursor-grab flex items-center flex-col"
+        style={{
+          top: icons.projects.top,
+          right: icons.projects.right,
+        }}
+        onMouseDown={(e) => onMouseDownIcon(e, "projects")}
+        onDoubleClick={() => dispatch(finderToggle())}
+      >
+        <Image src="/public/images/folder.png" alt="" width={50} height={50} />
+        <span className="text-[12px] mt-2 font-medium text-gray-700 text-center">
+          projects
+        </span>
+      </div>
+
       <style>{`
-        @keyframes fadeIn {
-          to { opacity: 1 }
-        }
-        @keyframes slideUp {
-          from { opacity: 0; transform: translateY(18px) }
-          to { opacity: 1; transform: translateY(0px) }
-        }
-        @keyframes grow {
-          from { width: 0 }
-          to { width: 96px }
-        }
+        @keyframes fadeIn { to { opacity: 1 } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(18px) } to { opacity: 1; transform: translateY(0px) } }
+        @keyframes grow { from { width: 0 } to { width: 96px } }
       `}</style>
     </div>
   );

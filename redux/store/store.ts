@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import dockSlice from '../slices/dockSlice'
 import wallpaperSlice from '../slices/wallpaperSlice'
+import zIndexSlice from '../slices/zIndexSlice'
 
 export const store=configureStore({
     reducer:{
         dock:dockSlice,
-        wallpaper:wallpaperSlice
+        wallpaper:wallpaperSlice,
+        zIndex: zIndexSlice
     }
 });
 
