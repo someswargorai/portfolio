@@ -1,7 +1,8 @@
 "use client";
 
-import { useAppDispatch } from "@/redux/hooks/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hook";
 import { TerminalToggle } from "@/redux/slices/dockSlice";
+import { clickedZIndex } from "@/redux/slices/zIndexSlice";
 import { Check } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -11,6 +12,8 @@ export default function TerminalWindow() {
   const dispatch = useAppDispatch();
   const [offset, setOffSet] = useState({ x: 0, y: 0 });
   const [drag, setDrag] = useState(false);
+  const { zIndexclicked } = useAppSelector((state) => state.zIndex);
+
 
   const close = () => {
     dispatch(TerminalToggle());
@@ -44,13 +47,19 @@ export default function TerminalWindow() {
     });
   };
 
+   const clicked = () => {
+      dispatch(clickedZIndex("terminal"));
+    };
+
   return (
     <div
       className="fixed bg-white/50 shadow-lg rounded-xl backdrop-blur-xl max-w-2xl mx-auto mt-10 font-mono"
       style={{
         top: `${top}px`,
         left: `${left}px`,
+        zIndex: zIndexclicked === "terminal" ? 10 : 1
       }}
+      onClick={clicked}
     >
       <div
         className="bg-gray-100 px-4 py-3 items-center rounded-t-xl flex justify-between cursor-move"

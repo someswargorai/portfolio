@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  zIndex:1
+  zIndexclicked:""
 };
 
 const zIndexSlice = createSlice({
   initialState,
   name: "zIndexSlice",
   reducers: {
-    increaseZIndex: (state) => {
-      state.zIndex = state.zIndex+1;
+    clickedZIndex: (state, actions) => {
+      state.zIndexclicked = actions.payload
     },
  
   },
 });
 
-export const { increaseZIndex } = zIndexSlice.actions;
+export const { clickedZIndex } = zIndexSlice.actions;
 export default zIndexSlice.reducer;

@@ -1,6 +1,7 @@
 "use client";
-import { useAppDispatch } from "@/redux/hooks/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hook";
 import { safariToggle } from "@/redux/slices/dockSlice";
+import { clickedZIndex } from "@/redux/slices/zIndexSlice";
 import { Linkedin, Package } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -9,7 +10,8 @@ export default function SafariWindow() {
   const [top, setTop] = useState(10);
   const [left, setLeft] = useState(10);
   const [offset, setOffSet] = useState({ x: 0, y: 0 });
-  const dispatch=useAppDispatch();
+  const dispatch = useAppDispatch();
+  const { zIndexclicked } = useAppSelector((state) => state.zIndex);
 
   useEffect(() => {
     const mouseUp = () => {
@@ -33,20 +35,30 @@ export default function SafariWindow() {
 
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     setDrag(true);
+
     setOffSet({
       x: e.clientX - left,
       y: e.clientY - top,
     });
   };
 
-  const closeWindow=(e:React.MouseEvent<HTMLDivElement>)=>{
+  const closeWindow = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     dispatch(safariToggle());
-  }
+  };
+
+  const clicked = () => {
+    dispatch(clickedZIndex("safari"));
+  };
   return (
     <div
-      className={`fixed w-full flex justify-center py-12 px-4 bg-linear-to-br h-[600px]`}
-      style={{ top: `${top}px`, left: `${left}px` }}
+      className={`fixed w-[300px] md:w-[700px] flex justify-center py-2 px-4 bg-linear-to-br h-[600px]`}
+      style={{
+        top: `${top}px`,
+        left: `${left}px`,
+        zIndex: zIndexclicked === "safari" ? 10 : 1,
+      }}
+      onClick={clicked}
     >
       <div
         className="
@@ -60,7 +72,10 @@ export default function SafariWindow() {
           onMouseDown={onMouseDown}
         >
           <div className="flex flex-row gap-2">
-            <div className="w-3 h-3 rounded-full bg-red-500 cursor-pointer" onClick={closeWindow}></div>
+            <div
+              className="w-3 h-3 rounded-full bg-red-500 cursor-pointer"
+              onClick={closeWindow}
+            ></div>
             <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
             <div className="w-3 h-3 rounded-full bg-green-500"></div>
           </div>
@@ -74,11 +89,9 @@ export default function SafariWindow() {
           </h2>
 
           <div className="flex flex-col gap-12">
-           
             <div className="flex gap-4 items-start">
               <div className="rounded-lg bg-gray-100 p-3 flex items-center justify-center">
                 <Linkedin size={40} className="text-[#0077B5]" />{" "}
-           
               </div>
 
               <div>
@@ -99,7 +112,7 @@ export default function SafariWindow() {
 
             <div className="flex gap-4 items-start">
               <div className="rounded-lg bg-gray-100 p-3 flex items-center justify-center">
-                <Package size={40} className="text-red-600" /> 
+                <Package size={40} className="text-red-600" />
               </div>
 
               <div>

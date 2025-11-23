@@ -1,10 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import { finderToggle } from "@/redux/slices/dockSlice";
-import { useAppDispatch } from "@/redux/hooks/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hook";
 import { CodeIcon, Pin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { clickedZIndex } from "@/redux/slices/zIndexSlice";
 
 const projects = [
   {
@@ -43,14 +44,19 @@ export default function FinderWindow() {
   const [offsetFolder, setOffsetFolder] = useState({ x: 0, y: 0 });
   const [docPos, setDocPos] = useState({ x: 250, y: 60 });
   const [currentSection, setCurrentSection] = useState("work");
+  const { zIndexclicked } = useAppSelector((state) => state.zIndex);
 
   const closeWindow = () => dispatch(finderToggle());
 
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     setDrag(true);
+
     setOffset({ x: e.clientX - left, y: e.clientY - top });
   };
 
+  const clicked = () => {
+    dispatch(clickedZIndex("finder"));
+  };
   const redirectToProject = (link: string) => {
     window.open(link, "_blank");
   };
@@ -101,7 +107,8 @@ export default function FinderWindow() {
   return (
     <div
       className="fixed w-full max-w-3xl rounded-2xl shadow-2xl bg-white/80 backdrop-blur-xl border border-white/40 overflow-hidden"
-      style={{ top, left }}
+      style={{ top, left, zIndex: zIndexclicked === "finder" ? 10 : 1 }}
+      onClick={clicked}
     >
       <div
         className="flex items-center gap-2 px-4 py-3 bg-gray-100 border-b border-white/30 cursor-move"

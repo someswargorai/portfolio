@@ -1,14 +1,18 @@
-import { useAppDispatch } from "@/redux/hooks/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hook";
 import { ContactToggle } from "@/redux/slices/dockSlice";
+import { clickedZIndex } from "@/redux/slices/zIndexSlice";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Contacts() {
   const dispatch = useAppDispatch();
-  const [top, setTop] = useState(10);
-  const [left, setLeft] = useState(10);
+  const [top, setTop] = useState(40);
+  const [left, setLeft] = useState(40);
   const [drag, setDrag] = useState(false);
   const [offset, setOffSet] = useState({ x: 0, y: 0 });
+  const { zIndexclicked } = useAppSelector((state) => state.zIndex);
+
+
 
   const close = () => {
     dispatch(ContactToggle());
@@ -40,18 +44,27 @@ export default function Contacts() {
       y: e.clientY - top,
     });
   };
+
+   const clicked = () => {
+    dispatch(clickedZIndex("contacts"));
+  };
+
   return (
     <div
-      className={`fixed w-full flex justify-center py-12 px-4 bg-linear-to-br h-[600px]`}
-      style={{ top: `${top}px`, left: `${left}px` }}
+      className={`fixed w-[300px] h-[400px] md:w-[600px] flex justify-center py-2 px-4 bg-linear-to-br md:h-[475px]`}
+      style={{ top: `${top}px`, left: `${left}px`,zIndex: zIndexclicked === "contacts" ? 10 : 1 }}
+      onClick={clicked}
     >
       <section className="fixed  max-w-3xl mx-auto bg-white/50 backdrop-blur-xl rounded-2xl shadow-md p-0 overflow-hidden">
-<div
+        <div
           className="flex items-center justify-between gap-2 px-4 py-3 border-b border-white/30 bg-gray-100 backdrop-blur-xl cursor-move"
           onMouseDown={onMouseDown}
         >
           <div className="flex flex-row gap-2">
-            <div className="w-3 h-3 rounded-full bg-red-500 cursor-pointer" onClick={close}></div>
+            <div
+              className="w-3 h-3 rounded-full bg-red-500 cursor-pointer"
+              onClick={close}
+            ></div>
             <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
             <div className="w-3 h-3 rounded-full bg-green-500"></div>
           </div>
