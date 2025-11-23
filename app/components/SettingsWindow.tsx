@@ -46,12 +46,12 @@ export default function SettingsWindow() {
 
   return (
     <div
-      className="fixed bg-white/80 backdrop-blur-xl border border-white/30 shadow-2xl rounded-xl w-[420px]"
+      className="fixed bg-white/50 backdrop-blur-xl border border-white/30 shadow-2xl rounded-xl w-[420px]"
       style={{ top: `${top}px`, left: `${left}px` }}
     >
 
       <div
-        className="flex items-center gap-2 px-4 py-2 border-b border-white/30 cursor-move bg-white/60"
+        className="flex items-center gap-2 px-4 py-2 border-b border-white/30 cursor-move bg-gray-100"
         onMouseDown={onMouseDown}
       >
         <div className="w-3 h-3 rounded-full bg-red-500 cursor-pointer" onClick={close} />

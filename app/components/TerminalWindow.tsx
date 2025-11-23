@@ -46,14 +46,14 @@ export default function TerminalWindow() {
 
   return (
     <div
-      className="fixed bg-white shadow-lg rounded-xl border max-w-2xl mx-auto mt-10 font-mono"
+      className="fixed bg-white/50 shadow-lg rounded-xl backdrop-blur-xl max-w-2xl mx-auto mt-10 font-mono"
       style={{
         top: `${top}px`,
         left: `${left}px`,
       }}
     >
       <div
-        className="bg-gray-100 px-4 py-2 border-b rounded-t-xl flex justify-between cursor-move"
+        className="bg-gray-100 px-4 py-3 items-center rounded-t-xl flex justify-between cursor-move"
         onMouseDown={onMouseDown}
       >
         <div className="flex gap-2">

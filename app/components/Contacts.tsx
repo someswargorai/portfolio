@@ -45,18 +45,18 @@ export default function Contacts() {
       className={`fixed w-full flex justify-center py-12 px-4 bg-linear-to-br h-[600px]`}
       style={{ top: `${top}px`, left: `${left}px` }}
     >
-      <section className="fixed  max-w-3xl mx-auto bg-white rounded-2xl shadow-md p-0 overflow-hidden">
-        <div
-          className="flex items-center gap-2 bg-gray-100 px-4 py-3"
+      <section className="fixed  max-w-3xl mx-auto bg-white/50 backdrop-blur-xl rounded-2xl shadow-md p-0 overflow-hidden">
+<div
+          className="flex items-center justify-between gap-2 px-4 py-3 border-b border-white/30 bg-gray-100 backdrop-blur-xl cursor-move"
           onMouseDown={onMouseDown}
         >
-          <div
-            className="w-3 h-3 rounded-full bg-red-500 cursor-pointer"
-            onClick={close}
-          ></div>
-          <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-          <div className="w-3 h-3 rounded-full bg-green-500"></div>
-          <p className="text-sm text-gray-500 mx-auto">Contact Me</p>
+          <div className="flex flex-row gap-2">
+            <div className="w-3 h-3 rounded-full bg-red-500 cursor-pointer" onClick={close}></div>
+            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <div className="w-3 h-3 rounded-full bg-green-500"></div>
+          </div>
+
+          <span className="text-sm font-medium text-gray-700">Contacts</span>
         </div>
 
         <div className="p-6 md:p-10">

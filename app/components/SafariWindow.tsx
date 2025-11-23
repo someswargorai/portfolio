@@ -56,30 +56,16 @@ export default function SafariWindow() {
       "
       >
         <div
-          className="flex items-center gap-2 px-4 py-3 border-b border-white/30 bg-white/40 backdrop-blur-xl cursor-move"
+          className="flex items-center justify-between gap-2 px-4 py-3 border-b border-white/30 bg-gray-100 backdrop-blur-xl cursor-move"
           onMouseDown={onMouseDown}
         >
-          <div className="w-3 h-3 rounded-full bg-red-500 cursor-pointer" onClick={closeWindow}></div>
-          <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-          <div className="w-3 h-3 rounded-full bg-green-500"></div>
-
-          <div className="flex-1"></div>
-
-          <div
-            className="
-            hidden md:flex items-center gap-2
-            px-4 py-1.5
-            bg-white/70 border border-white/40
-            rounded-full text-sm text-gray-700 w-72
-          "
-          >
-            <span className="opacity-50">🔍</span>
-            <input
-              type="text"
-              placeholder="Search or enter website name"
-              className="bg-transparent outline-none w-full text-sm"
-            />
+          <div className="flex flex-row gap-2">
+            <div className="w-3 h-3 rounded-full bg-red-500 cursor-pointer" onClick={closeWindow}></div>
+            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <div className="w-3 h-3 rounded-full bg-green-500"></div>
           </div>
+
+          <span className="text-sm font-medium text-gray-700">Safari</span>
         </div>
 
         <div className="px-8 py-10 overflow-y-auto h-[calc(100vh-300px)]">
