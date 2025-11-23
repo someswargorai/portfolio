@@ -34,11 +34,14 @@ export default function FinderWindow() {
   const dispatch = useAppDispatch();
   const [selected, setSelected] = useState(projects[0]);
   const [drag, setDrag] = useState(false);
+  const [dragFolder, setDragFolder] = useState(false);
   const [top, setTop] = useState(50);
   const [left, setLeft] = useState(20);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [hide, setHide] = useState(false);
-  const [docs, setDocs] = useState<{ link: string, name:string }[]>([]);
+  const [docs, setDocs] = useState<{ link: string; name: string }[]>([]);
+  const [offsetFolder, setOffsetFolder] = useState({ x: 0, y: 0 });
+  const [docPos, setDocPos] = useState({ x: 250, y: 60 });
 
   const closeWindow = () => dispatch(finderToggle());
 
@@ -47,8 +50,13 @@ export default function FinderWindow() {
     setOffset({ x: e.clientX - left, y: e.clientY - top });
   };
 
+  const redirectToProject=(link:string)=>{
+    window.open(link,"_blank")
+  }
   useEffect(() => {
-    const mouseUp = () => setDrag(false);
+    const mouseUp = () => {
+      setDrag(false);
+    };
     const mouseMove = (e: MouseEvent) => {
       if (!drag) return;
       setLeft(e.clientX - offset.x);
@@ -62,6 +70,33 @@ export default function FinderWindow() {
     };
   }, [drag, offset]);
 
+  useEffect(() => {
+    const mouseFolderUp = () => {
+      setDragFolder(false);
+    };
+    const mouseFolderMove = (e: MouseEvent) => {
+      if (!dragFolder) return;
+      setDocPos({
+        x:e.clientX - offsetFolder.x,
+        y:e.clientY - offsetFolder.y
+      });
+    };
+    window.addEventListener("mousemove", mouseFolderMove);
+    window.addEventListener("mouseup", mouseFolderUp);
+    return () => {
+      window.removeEventListener("mousemove", mouseFolderMove);
+      window.removeEventListener("mouseup", mouseFolderUp);
+    };
+  }, [dragFolder, offsetFolder]);
+
+  const onMouseDownFolder = (e: React.MouseEvent<HTMLDivElement>) => {
+    setDragFolder(true);
+    e.preventDefault();
+    setOffsetFolder({
+      x: e.clientX - docPos.x,
+      y: e.clientY - docPos.y,
+    });
+  };
   return (
     <div
       className="fixed w-full max-w-3xl rounded-2xl shadow-2xl bg-white/80 backdrop-blur-xl border border-white/40 overflow-hidden"
@@ -177,21 +212,31 @@ export default function FinderWindow() {
                   </>
                 ) : (
                   <>
-                    {docs?.[0]?.name === p.name && docs?.[0]?.link && (
-                      <Link
-                        href={docs[0]?.link}
-                        target="_blank"
-                        className="text-sm mt-2 font-medium text-gray-700 text-center flex items-center flex-col"
-                      >
-                        <Image
-                          src="/public/images/txt.png"
-                          alt=""
-                          width={50}
-                          height={50}
-                        />
-                        {docs[0].link}
-                      </Link>
-                    )}
+                    <div
+                      onMouseDown={onMouseDownFolder}
+                      style={{
+                        position: "absolute",
+                        left: `${docPos.x}px`,
+                        top: `${docPos.y}px`,
+                      }}
+                    >
+                      {docs?.[0]?.name === p.name && docs?.[0]?.link && (
+                        <div
+                          // href={docs[0]?.link}
+                          // target="_blank"
+                          onDoubleClick={()=>redirectToProject(docs[0]?.link)}
+                          className="text-sm mt-2 font-medium text-gray-700 text-center flex items-center flex-col hover:text-blue-500"
+                        >
+                          <Image
+                            src="/public/images/txt.png"
+                            alt=""
+                            width={50}
+                            height={50}
+                          />
+                          <p>{docs?.[0]?.name}</p>
+                        </div>
+                      )}
+                    </div>
                   </>
                 )}
               </div>

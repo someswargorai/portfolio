@@ -14,8 +14,8 @@ export default function MacMenuBar() {
           h-10
           flex items-center justify-between
           px-4
-          bg-[#eceaff]/60
-          backdrop-blur-2xl
+          bg-[#eceaff]/20
+          backdrop-blur-3xl
           border-b border-black/10
           select-none
           text-sm
