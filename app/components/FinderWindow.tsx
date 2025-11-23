@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { finderToggle } from "@/redux/slices/dockSlice";
 import { useAppDispatch } from "@/redux/hooks/hook";
-import { Pin } from "lucide-react";
+import { CodeIcon, Pin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -42,6 +42,7 @@ export default function FinderWindow() {
   const [docs, setDocs] = useState<{ link: string; name: string }[]>([]);
   const [offsetFolder, setOffsetFolder] = useState({ x: 0, y: 0 });
   const [docPos, setDocPos] = useState({ x: 250, y: 60 });
+  const [currentSection, setCurrentSection] = useState("work");
 
   const closeWindow = () => dispatch(finderToggle());
 
@@ -50,9 +51,9 @@ export default function FinderWindow() {
     setOffset({ x: e.clientX - left, y: e.clientY - top });
   };
 
-  const redirectToProject=(link:string)=>{
-    window.open(link,"_blank")
-  }
+  const redirectToProject = (link: string) => {
+    window.open(link, "_blank");
+  };
   useEffect(() => {
     const mouseUp = () => {
       setDrag(false);
@@ -77,8 +78,8 @@ export default function FinderWindow() {
     const mouseFolderMove = (e: MouseEvent) => {
       if (!dragFolder) return;
       setDocPos({
-        x:e.clientX - offsetFolder.x,
-        y:e.clientY - offsetFolder.y
+        x: e.clientX - offsetFolder.x,
+        y: e.clientY - offsetFolder.y,
       });
     };
     window.addEventListener("mousemove", mouseFolderMove);
@@ -121,40 +122,89 @@ export default function FinderWindow() {
             <p className="text-xs font-semibold text-gray-400 mb-2">
               Favorites
             </p>
-            <p className="py-1.5 font-medium text-blue-600 bg-blue-50 rounded-md px-2 flex items-center gap-2">
+            <p
+              className={`py-1.5 font-medium ${
+                currentSection === "work" ? "text-blue-600 bg-blue-50" : ""
+              }  rounded-md px-2 flex items-center gap-2 cursor-pointer`}
+              onClick={() => setCurrentSection("work")}
+            >
               {" "}
               <Pin size={17} />
               Work
             </p>
+            <p
+              className={`py-1.5 font-medium ${
+                currentSection === "about" ? "text-blue-600 bg-blue-50 " : ""
+              } rounded-md px-2 flex items-center gap-2 cursor-pointer`}
+              onClick={() => setCurrentSection("about")}
+            >
+              {" "}
+              <CodeIcon size={17} />
+              About Me
+            </p>
           </div>
 
-          <div>
-            <p className="text-xs font-semibold text-gray-400 mb-2">
-              My Projects
-            </p>
-            {projects.map((p, index) => (
-              <div
-                key={index}
-                onClick={() => {
-                  setHide(false);
-                  setDocs([]);
-                }}
-                className={`flex items-center gap-2 ${
-                  selected.name === p.name
-                    ? "text-blue-600 bg-blue-50"
-                    : "text-gray-700 hover:bg-gray-100"
-                }`}
-              >
-                <Image
-                  src="/public/images/folder.png"
-                  alt=""
-                  width={20}
-                  height={20}
-                />
-                <p
-                  key={p.name}
-                  className={`px-2 py-1.5 truncate cursor-pointer rounded-md `}
+          {currentSection === "work" && (
+            <div>
+              <p className="text-xs font-semibold text-gray-400 mb-2">
+                My Projects
+              </p>
+              {projects.map((p, index) => (
+                <div
+                  key={index}
                   onClick={() => {
+                    setHide(false);
+                    setDocs([]);
+                  }}
+                  className={`flex items-center gap-2 ${
+                    selected.name === p.name
+                      ? "text-blue-600 bg-blue-50"
+                      : "text-gray-700 hover:bg-gray-100"
+                  }`}
+                >
+                  <Image
+                    src="/public/images/folder.png"
+                    alt=""
+                    width={20}
+                    height={20}
+                  />
+                  <p
+                    key={p.name}
+                    className={`px-2 py-1.5 truncate cursor-pointer rounded-md `}
+                    onClick={() => {
+                      setHide(true);
+                      if (selected.name === p.name) {
+                        const json = [
+                          {
+                            name: p.name,
+                            link: p.link,
+                          },
+                        ];
+                        setDocs(json);
+                      }
+                    }}
+                  >
+                    {p.name}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </aside>
+
+        <div className="flex-1 p-8 flex gap-10">
+          {currentSection === "work" ? (
+            <div className="grid grid-cols-3 gap-8 ">
+              {projects.map((p) => (
+                <div
+                  key={p.name}
+                  onClick={() => setSelected(p)}
+                  className={`flex flex-col items-center cursor-pointer ${
+                    selected.name === p.name
+                      ? "opacity-100"
+                      : "opacity-70 hover:opacity-100"
+                  }`}
+                  onDoubleClick={() => {
                     setHide(true);
                     if (selected.name === p.name) {
                       const json = [
@@ -167,81 +217,89 @@ export default function FinderWindow() {
                     }
                   }}
                 >
-                  {p.name}
+                  {!hide ? (
+                    <>
+                      <Image
+                        src="/public/images/folder.png"
+                        alt=""
+                        width={50}
+                        height={50}
+                      />
+                      <span className="text-sm mt-2 font-medium text-gray-700 text-center">
+                        {p.name}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <div
+                        onMouseDown={onMouseDownFolder}
+                        style={{
+                          position: "absolute",
+                          left: `${docPos.x}px`,
+                          top: `${docPos.y}px`,
+                        }}
+                      >
+                        {docs?.[0]?.name === p.name && docs?.[0]?.link && (
+                          <div
+                            onDoubleClick={() =>
+                              redirectToProject(docs[0]?.link)
+                            }
+                            className="text-sm mt-2 font-medium text-gray-700 text-center flex items-center flex-col hover:text-blue-500"
+                          >
+                            <Image
+                              src="/public/images/txt.png"
+                              alt=""
+                              width={50}
+                              height={50}
+                            />
+                            <p>{docs?.[0]?.name}</p>
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  )}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div>
+              <p className="font-semibold text-xl mb-2">About Me 👨‍💻</p>
+              <div className="text-gray-700 text-sm leading-relaxed space-y-3">
+                <p>
+                  I am a B.Tech CSE Engineer with 1.2 years of experience in
+                  full-stack web development. I enjoy turning ideas into clean,
+                  functional and visually engaging digital products.
+                </p>
+
+                <p>
+                  My core focus lies in building fast, scalable and user-centric
+                  applications using modern JavaScript frameworks and backend
+                  technologies. I am deeply passionate about UI/UX, animations,
+                  component-driven architecture, performance optimisation and
+                  smooth user workflows.
+                </p>
+
+                <p>
+                  I love designing systems that feel intuitive and powerful at
+                  the same time. Beyond coding, I enjoy learning new tools,
+                  documenting tech concepts and contributing to side projects
+                  that sharpen my problem-solving skills.
+                </p>
+
+                <p>
+                  My long-term goal is to grow as a senior full-stack engineer
+                  while shaping meaningful software that creates real-world
+                  impact.
+                </p>
+
+                <p>
+                  When I’m not coding, you’ll probably find me exploring new
+                  tech, brainstorming startup ideas, or perfecting the UI of a
+                  side project that nobody asked for — but I love anyway 😄
                 </p>
               </div>
-            ))}
-          </div>
-        </aside>
-
-        <div className="flex-1 p-8 flex gap-10">
-          <div className="grid grid-cols-3 gap-8 ">
-            {projects.map((p) => (
-              <div
-                key={p.name}
-                onClick={() => setSelected(p)}
-                className={`flex flex-col items-center cursor-pointer ${
-                  selected.name === p.name
-                    ? "opacity-100"
-                    : "opacity-70 hover:opacity-100"
-                }`}
-                onDoubleClick={() => {
-                  setHide(true);
-                  if (selected.name === p.name) {
-                    const json = [
-                      {
-                        name: p.name,
-                        link: p.link,
-                      },
-                    ];
-                    setDocs(json);
-                  }
-                }}
-              >
-                {!hide ? (
-                  <>
-                    <Image
-                      src="/public/images/folder.png"
-                      alt=""
-                      width={50}
-                      height={50}
-                    />
-                    <span className="text-sm mt-2 font-medium text-gray-700 text-center">
-                      {p.name}
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <div
-                      onMouseDown={onMouseDownFolder}
-                      style={{
-                        position: "absolute",
-                        left: `${docPos.x}px`,
-                        top: `${docPos.y}px`,
-                      }}
-                    >
-                      {docs?.[0]?.name === p.name && docs?.[0]?.link && (
-                        <div
-                          // href={docs[0]?.link}
-                          // target="_blank"
-                          onDoubleClick={()=>redirectToProject(docs[0]?.link)}
-                          className="text-sm mt-2 font-medium text-gray-700 text-center flex items-center flex-col hover:text-blue-500"
-                        >
-                          <Image
-                            src="/public/images/txt.png"
-                            alt=""
-                            width={50}
-                            height={50}
-                          />
-                          <p>{docs?.[0]?.name}</p>
-                        </div>
-                      )}
-                    </div>
-                  </>
-                )}
-              </div>
-            ))}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
