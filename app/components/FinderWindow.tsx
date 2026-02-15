@@ -106,7 +106,7 @@ export default function FinderWindow() {
   };
   return (
     <div
-      className="fixed w-full max-w-3xl rounded-2xl shadow-2xl bg-white/80 backdrop-blur-xl border border-white/40 overflow-hidden"
+      className="fixed w-[340px] sm:w-full max-w-3xl rounded-2xl shadow-2xl bg-white/80 backdrop-blur-xl border border-white/40 overflow-hidden"
       style={{ top, left, zIndex: zIndexclicked === "finder" ? 10 : 1 }}
       onClick={clicked}
     >
@@ -123,8 +123,8 @@ export default function FinderWindow() {
         <div className="flex-1"></div>
       </div>
 
-      <div className="flex h-[480px]">
-        <aside className="w-60 bg-white/50 border-r border-white/30 px-4 py-6 space-y-6">
+      <div className="flex h-[440px] overflow-y-auto">
+        <aside className="hidden md:block w-60 bg-white/50 border-r border-white/30 px-4 py-6 space-y-6">
           <div>
             <p className="text-xs font-semibold text-gray-400 mb-2">
               Favorites
@@ -232,7 +232,7 @@ export default function FinderWindow() {
                         width={50}
                         height={50}
                       />
-                      <span className="text-sm mt-2 font-medium text-gray-700 text-center">
+                      <span className="text-[10px] sm:text-sm mt-2 font-medium text-gray-700 text-center">
                         {p.name}
                       </span>
                     </>
@@ -259,7 +259,7 @@ export default function FinderWindow() {
                               width={50}
                               height={50}
                             />
-                            <p>{docs?.[0]?.name}</p>
+                            <p >{docs?.[0]?.name}</p>
                           </div>
                         )}
                       </div>

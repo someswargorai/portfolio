@@ -10,7 +10,7 @@ import { clickedZIndex } from "@/redux/slices/zIndexSlice";
 export default function SettingsWindow() {
   const dispatch = useAppDispatch();
   const [top, setTop] = useState(70);
-  const [left, setLeft] = useState(70);
+  const [left, setLeft] = useState(20);
   const [drag, setDrag] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const { zIndexclicked } = useAppSelector((state) => state.zIndex);
@@ -53,7 +53,7 @@ export default function SettingsWindow() {
 
   return (
     <div
-      className="fixed bg-white/50 backdrop-blur-xl border border-white/30 shadow-2xl rounded-xl w-[420px]"
+      className="fixed bg-white/50 backdrop-blur-xl border border-white/30 shadow-2xl rounded-xl w-[340px] sm:w-[470px] h-[440px] overflow-y-auto"
       style={{ top: `${top}px`, left: `${left}px`,zIndex: zIndexclicked === "settings" ? 10 : 1 }}
       onClick={clicked}
     >
@@ -77,12 +77,12 @@ export default function SettingsWindow() {
           Choose the background of your system
         </p>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {wallpapers.map((src, i) => (
             <button
               key={i}
               onClick={() => dispatch(setWallpaper(src))}
-              className="relative h-28 rounded-lg overflow-hidden group border border-gray-200 hover:border-blue-400 transition"
+              className="col-span-1  relative h-28 rounded-lg overflow-hidden group border border-gray-200 hover:border-blue-400 transition"
             >
               <Image
                 src={src}

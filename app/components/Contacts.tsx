@@ -51,11 +51,11 @@ export default function Contacts() {
 
   return (
     <div
-      className={`fixed w-[300px] h-[400px] md:w-[600px] flex justify-center py-2 px-4 bg-linear-to-br md:h-[475px]`}
+      className={`fixed w-[300px] h-[400px] md:w-[600px] flex justify-center py-2 px-4 bg-linear-to-br md:h-[475px] `}
       style={{ top: `${top}px`, left: `${left}px`,zIndex: zIndexclicked === "contacts" ? 10 : 1 }}
       onClick={clicked}
     >
-      <section className="fixed  max-w-3xl mx-auto bg-white/50 backdrop-blur-xl rounded-2xl shadow-md p-0 overflow-hidden">
+      <section className="fixed  max-w-3xl mx-auto bg-white/50 backdrop-blur-xl rounded-2xl shadow-md p-0 overflow-y-auto h-[470px]">
         <div
           className="flex items-center justify-between gap-2 px-4 py-3 border-b border-white/30 bg-gray-100 backdrop-blur-xl cursor-move"
           onMouseDown={onMouseDown}
@@ -95,37 +95,37 @@ export default function Contacts() {
             <a
               href="https://github.com/someswargorai"
               target="_blank"
-              className="flex flex-col justify-center items-center bg-red-400 text-white p-4 rounded-xl gap-2 hover:opacity-90 transition"
+              className="flex flex-col justify-center items-center bg-transparent sm:bg-red-400 text-black font-400 sm:text-white p-4 rounded-xl gap-2 hover:opacity-90 transition"
             >
               <span className="text-lg">🐙</span>
-              <p className="font-semibold">Github</p>
+              <p>Github</p>
             </a>
 
             <a
               href="#"
               target="_blank"
-              className="flex flex-col justify-center items-center bg-green-400 text-white p-4 rounded-xl gap-2 hover:opacity-90 transition"
+              className="flex flex-col justify-center  bg-transparent  items-center sm:bg-green-400 text-black sm:text-white p-4 rounded-xl gap-2 hover:opacity-90 transition"
             >
               <span className="text-lg">🧩</span>
-              <p className="font-semibold">Platform</p>
+              <p className="font-normal">Platform</p>
             </a>
 
             <a
               href="https://twitter.com"
               target="_blank"
-              className="flex flex-col justify-center items-center bg-orange-300 text-white p-4 rounded-xl gap-2 hover:opacity-90 transition"
+              className="flex flex-col justify-center items-center bg-transparent sm:bg-orange-300 text-black sm:text-white p-4 rounded-xl gap-2 hover:opacity-90 transition"
             >
               <span className="text-lg">✖</span>
-              <p className="font-semibold">Twitter / X</p>
+              <p className="font-normal">Twitter / X</p>
             </a>
 
             <a
               href="https://www.linkedin.com/in/som-gorai-3a12582b3/"
               target="_blank"
-              className="flex flex-col justify-center items-center bg-blue-500 text-white p-4 rounded-xl gap-2 hover:opacity-90 transition"
+              className="flex flex-col justify-center items-center bg-transparent sm:bg-blue-500 text-black sm:text-white p-4 rounded-xl gap-2 hover:opacity-90 transition"
             >
               <span className="text-lg">in</span>
-              <p className="font-semibold">LinkedIn</p>
+              <p className="font-normal">LinkedIn</p>
             </a>
           </div>
         </div>

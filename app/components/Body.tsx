@@ -137,7 +137,7 @@ export default function Body() {
 
       {/* ICON 1 — getirnow PRD */}
       <div
-        className="absolute cursor-grab flex items-center flex-col"
+        className="absolute cursor-grab hidden sm:flex items-center flex-col"
         style={{
           top: icons.getirnow.top,
           right: icons.getirnow.right,
@@ -152,7 +152,7 @@ export default function Body() {
 
       {/* ICON 2 — pingME PRD */}
       <div
-        className="absolute cursor-grab flex items-center flex-col"
+        className="absolute cursor-grab sm:flex items-center flex-col hidden"
         style={{
           top: icons.pingme.top,
           right: icons.pingme.right,
@@ -167,13 +167,14 @@ export default function Body() {
 
       {/* ICON 3 — projects folder */}
       <div
-        className="absolute cursor-grab flex items-center flex-col"
+        className="absolute cursor-grab hidden sm:flex items-center flex-col"
         style={{
           top: icons.projects.top,
           right: icons.projects.right,
         }}
         onMouseDown={(e) => onMouseDownIcon(e, "projects")}
         onDoubleClick={() => dispatch(finderToggle())}
+        onTouchStartCapture={()=>dispatch(finderToggle())}
       >
         <Image src="/public/images/folder.png" alt="" width={50} height={50} />
         <span className="text-[12px] mt-2 font-medium text-gray-700 text-center">
