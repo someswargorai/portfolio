@@ -107,7 +107,7 @@ export default function FinderWindow() {
   return (
     <div
       className="fixed w-[340px] sm:w-full max-w-3xl rounded-2xl shadow-2xl bg-white/80 backdrop-blur-xl border border-white/40 overflow-hidden"
-      style={{ top, left, zIndex: zIndexclicked === "finder" ? 10 : 1 }}
+      style={{ top, left, zIndex: zIndexclicked === "finder" ? 100 : 1 }}
       onClick={clicked}
     >
       <div

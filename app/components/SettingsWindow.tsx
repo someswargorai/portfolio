@@ -53,16 +53,16 @@ export default function SettingsWindow() {
 
   return (
     <div
-      className="fixed bg-white/50 backdrop-blur-xl border border-white/30 shadow-2xl rounded-xl w-[340px] sm:w-[470px] h-[440px] overflow-y-auto"
-      style={{ top: `${top}px`, left: `${left}px`,zIndex: zIndexclicked === "settings" ? 10 : 1 }}
+      className="fixed bg-white/50 backdrop-blur-xl border border-white/30 shadow-2xl rounded-3xl w-[340px] sm:w-[470px] h-[440px] "
+      style={{ top: `${top}px`, left: `${left}px`,zIndex: zIndexclicked === "settings" ? 100 : 1 }}
       onClick={clicked}
     >
       <div
-        className="flex items-center gap-2 px-4 py-2 border-b border-white/30 cursor-move bg-gray-100"
+        className="flex items-center gap-2 px-4 py-2 border-b border-white/30 cursor-move bg-gray-100 rounded-t-2xl"
         onMouseDown={onMouseDown}
       >
         <div
-          className="w-3 h-3 rounded-full bg-red-500 cursor-pointer"
+          className="w-3 h-3 rounded-3xl bg-red-500 cursor-pointer"
           onClick={close}
         />
         <div className="w-3 h-3 rounded-full bg-yellow-500" />
@@ -71,7 +71,7 @@ export default function SettingsWindow() {
         <span className="text-sm font-medium text-gray-700">Settings</span>
       </div>
 
-      <div className="p-5 space-y-6">
+      <div className="p-5 space-y-6 h-[400px] [&::-webkit-scrollbar]:w-1 overflow-y-auto ">
         <h2 className="text-gray-700 font-semibold text-lg">Wallpaper</h2>
         <p className="text-sm text-gray-500 -mt-2">
           Choose the background of your system

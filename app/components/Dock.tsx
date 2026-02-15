@@ -70,7 +70,7 @@ export default function Dock() {
 
             <span
               className={`
-                text-xs mt-1 text-black
+                text-[9px] text-[#666666]
                 transition-opacity duration-200
                 ${isHovered ? "opacity-100" : "opacity-0"}
               `}

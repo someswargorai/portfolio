@@ -48,7 +48,7 @@ export default function ResumeWindow() {
       style={{
         top: `${top}px`,
         left: `${left}px`,
-        zIndex: zIndexclicked === "resume" ? 10 : 1,
+        zIndex: zIndexclicked === "resume" ? 100 : 1,
       }}
       onClick={clicked}
     >
@@ -66,7 +66,7 @@ export default function ResumeWindow() {
         <p className="mx-auto text-gray-700 text-sm font-medium">Resume.pdf</p>
       </div>
 
-      <div className="p-4 overflow-y-auto h-[calc(100%-120px)]">
+      <div className="p-4 overflow-y-auto h-[calc(100%-40px)]">
         <embed
           src="/public/files/resume.pdf"
           type="application/pdf"

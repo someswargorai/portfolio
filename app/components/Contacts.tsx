@@ -1,8 +1,48 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hook";
 import { ContactToggle } from "@/redux/slices/dockSlice";
 import { clickedZIndex } from "@/redux/slices/zIndexSlice";
+import { Check, Copy, ExternalLink, Github, Linkedin, Mail, Twitter } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+
+export interface SocialLink {
+  name: string;
+  url: string;
+  icon: string;
+  color: string;
+  iconBg: string;
+}
+
+const SOCIAL_LINKS: SocialLink[] = [
+  { 
+    name: 'GitHub', 
+    url: 'https://github.com/someswargorai', 
+    icon: 'github', 
+    color: 'hover:text-black', 
+    iconBg: 'bg-zinc-100 group-hover:bg-zinc-200' 
+  },
+  { 
+    name: 'LinkedIn', 
+    url: 'https://www.linkedin.com/in/som-gorai-3a12582b3/', 
+    icon: 'linkedin', 
+    color: 'hover:text-blue-600', 
+    iconBg: 'bg-blue-50 group-hover:bg-blue-100' 
+  },
+  { 
+    name: 'Twitter', 
+    url: 'https://twitter.com', 
+    icon: 'twitter', 
+    color: 'hover:text-sky-500', 
+    iconBg: 'bg-sky-50 group-hover:bg-sky-100' 
+  },
+  { 
+    name: 'Platform', 
+    url: '#', 
+    icon: 'external', 
+    color: 'hover:text-emerald-600', 
+    iconBg: 'bg-emerald-50 group-hover:bg-emerald-100' 
+  },
+];
 
 export default function Contacts() {
   const dispatch = useAppDispatch();
@@ -11,8 +51,7 @@ export default function Contacts() {
   const [drag, setDrag] = useState(false);
   const [offset, setOffSet] = useState({ x: 0, y: 0 });
   const { zIndexclicked } = useAppSelector((state) => state.zIndex);
-
-
+  const [copied, setCopied] = useState(false);
 
   const close = () => {
     dispatch(ContactToggle());
@@ -45,88 +84,134 @@ export default function Contacts() {
     });
   };
 
-   const clicked = () => {
+  const clicked = () => {
     dispatch(clickedZIndex("contacts"));
+  };
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText('somgorai726@gmail.com');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const getIcon = (type: string) => {
+    const size = 20;
+    switch (type) {
+      case 'github': return <Github size={size} />;
+      case 'linkedin': return <Linkedin size={size} />;
+      case 'twitter': return <Twitter size={size} />;
+      case 'external': return <ExternalLink size={size} />;
+      default: return null;
+    }
   };
 
   return (
     <div
-      className={`fixed w-[300px] h-[400px] md:w-[600px] flex justify-center py-2 px-4 bg-linear-to-br md:h-[475px] `}
-      style={{ top: `${top}px`, left: `${left}px`,zIndex: zIndexclicked === "contacts" ? 10 : 1 }}
+      className="fixed"
+      style={{ 
+        top: `${top}px`, 
+        left: `${left}px`,
+        zIndex: zIndexclicked === "contacts" ? 100 : 1 
+      }}
       onClick={clicked}
     >
-      <section className="fixed  max-w-3xl mx-auto bg-white/50 backdrop-blur-xl rounded-2xl shadow-md p-0 overflow-y-auto h-[470px]">
-        <div
-          className="flex items-center justify-between gap-2 px-4 py-3 border-b border-white/30 bg-gray-100 backdrop-blur-xl cursor-move"
+      <section className="w-[340px] md:w-[520px] bg-white/50 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden border border-white/30">
+        {/* Header */}
+        <div 
           onMouseDown={onMouseDown}
+          className="flex items-center justify-between px-5 h-12 bg-white/40 border-b border-white/20 cursor-grab active:cursor-grabbing backdrop-blur-md"
         >
-          <div className="flex flex-row gap-2">
-            <div
-              className="w-3 h-3 rounded-full bg-red-500 cursor-pointer"
-              onClick={close}
-            ></div>
-            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-            <div className="w-3 h-3 rounded-full bg-green-500"></div>
+          <div className="flex items-center gap-2.5">
+            <div 
+              onClick={close} 
+              className="w-3 h-3 rounded-full bg-[#FF5F57] border border-black/10 hover:shadow-inner hover:brightness-90 transition-all cursor-pointer"
+            />
+            <div className="w-3 h-3 rounded-full bg-[#FEBC2E] border border-black/10" />
+            <div className="w-3 h-3 rounded-full bg-[#28C840] border border-black/10" />
           </div>
-
-          <span className="text-sm font-medium text-gray-700">Contacts</span>
+          <div className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">
+            Connect
+          </div>
+          <div className="w-12" />
         </div>
 
-        <div className="p-6 md:p-10">
-          <div className="flex flex-col items-center gap-4">
-            <Image
-              src="/public/images/profile.jpg"
-              alt="profile"
-              className="w-20 h-20 rounded-full object-cover"
-              width={200}
-              height={200}
-            />
+        {/* Content */}
+        <div className="max-h-[500px] overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-zinc-300 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-zinc-400">
+          <div className="p-8 md:p-12 flex flex-col items-center">
+            
+            {/* Profile Section */}
+            <div className="relative group">
+              <div className="absolute inset-0 bg-indigo-500 rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
+              <div className="relative w-28 h-28 rounded-full p-1 bg-gradient-to-tr from-indigo-500 via-fuchsia-500 to-pink-500 shadow-xl">
+                <div className="w-full h-full rounded-full border-2 border-white overflow-hidden bg-zinc-100">
+                  <Image 
+                    src="/public/images/profile.jpg" 
+                    alt="Profile"
+                    width={250}
+                    height={250} 
+                    className="w-full h-full object-cover transition-transform group-hover:scale-110 duration-500"
+                  />
+                </div>
+              </div>
+              <div className="absolute top-20 right-2 w-5 h-5 bg-green-500 border-4 border-white rounded-full shadow-lg" />
+            </div>
 
-            <h1 className="text-2xl font-semibold">Let&apos;s Connect</h1>
+            {/* Title */}
+            <div className="mt-8 text-center">
+              <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-zinc-800 to-zinc-500 tracking-tight">
+                Let&apos;s Connect
+              </h1>
+              <p className="mt-3 text-zinc-600 font-medium max-w-sm leading-relaxed">
+                Have a bold vision? A complex bug? Or just want to geek out over the latest tech? I&apos;m all ears.
+              </p>
+            </div>
 
-            <p className="text-center text-gray-600 max-w-md">
-              Got an idea? A bug to fix? Or just wanna talk tech? I&apos;m in.
+            {/* Email Card */}
+            <div className="mt-10 w-full">
+              <div className="relative flex items-center justify-between p-4 bg-white/40 border border-white/50 rounded-2xl shadow-sm hover:shadow-md hover:bg-white/60 transition-all duration-300">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600">
+                    <Mail size={20} />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Email Address</p>
+                    <p className="text-sm font-semibold text-zinc-800">somgorai726@gmail.com</p>
+                  </div>
+                </div>
+                <button 
+                  onClick={copyEmail}
+                  className="p-2.5 rounded-xl hover:bg-white transition-colors text-zinc-400 hover:text-indigo-600"
+                  title="Copy to clipboard"
+                >
+                  {copied ? <Check size={18} className="text-emerald-500" /> : <Copy size={18} />}
+                </button>
+              </div>
+            </div>
+
+            {/* Social Grid */}
+            <div className="mt-8 grid grid-cols-2 gap-4 w-full">
+              {SOCIAL_LINKS.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`group flex flex-col items-center justify-center p-5 bg-white/30 border border-white/40 rounded-2xl hover:bg-white/60 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 ${link.color}`}
+                >
+                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-3 transition-all duration-300 ${link.iconBg}`}>
+                    {getIcon(link.icon)}
+                  </div>
+                  <span className="text-xs font-bold uppercase tracking-wide text-zinc-500 group-hover:text-inherit">
+                    {link.name}
+                  </span>
+                </a>
+              ))}
+            </div>
+
+            {/* Footer */}
+            <p className="mt-12 text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] text-center">
+              Available for remote opportunities
             </p>
-
-            <p className="text-blue-600 font-medium">somgorai726@gmail.com</p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-            <a
-              href="https://github.com/someswargorai"
-              target="_blank"
-              className="flex flex-col justify-center items-center bg-transparent sm:bg-red-400 text-black font-400 sm:text-white p-4 rounded-xl gap-2 hover:opacity-90 transition"
-            >
-              <span className="text-lg">🐙</span>
-              <p>Github</p>
-            </a>
-
-            <a
-              href="#"
-              target="_blank"
-              className="flex flex-col justify-center  bg-transparent  items-center sm:bg-green-400 text-black sm:text-white p-4 rounded-xl gap-2 hover:opacity-90 transition"
-            >
-              <span className="text-lg">🧩</span>
-              <p className="font-normal">Platform</p>
-            </a>
-
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              className="flex flex-col justify-center items-center bg-transparent sm:bg-orange-300 text-black sm:text-white p-4 rounded-xl gap-2 hover:opacity-90 transition"
-            >
-              <span className="text-lg">✖</span>
-              <p className="font-normal">Twitter / X</p>
-            </a>
-
-            <a
-              href="https://www.linkedin.com/in/som-gorai-3a12582b3/"
-              target="_blank"
-              className="flex flex-col justify-center items-center bg-transparent sm:bg-blue-500 text-black sm:text-white p-4 rounded-xl gap-2 hover:opacity-90 transition"
-            >
-              <span className="text-lg">in</span>
-              <p className="font-normal">LinkedIn</p>
-            </a>
           </div>
         </div>
       </section>

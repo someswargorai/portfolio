@@ -58,7 +58,7 @@ export default function SafariWindow() {
       style={{
         top: `${top}px`,
         left: `${left}px`,
-        zIndex: zIndexclicked === "safari" ? 10 : 1,
+        zIndex: zIndexclicked === "safari" ? 100 : 1,
       }}
       onClick={clicked}
     >
@@ -67,6 +67,7 @@ export default function SafariWindow() {
           w-full bg-white/80 backdrop-blur-xl
           border border-white/30 shadow-2xl rounded-md
           overflow-hidden flex flex-col
+          [&::-webkit-scrollbar]:w-1
           max-h-[76vh]
         `}
       >
@@ -100,6 +101,7 @@ export default function SafariWindow() {
         <div
           className={`
             flex-1 overflow-y-auto
+            [&::-webkit-scrollbar]:w-1
             px-5 sm:px-8 md:px-10
             py-6 sm:py-8 md:py-10
           `}

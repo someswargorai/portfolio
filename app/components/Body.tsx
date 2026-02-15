@@ -170,7 +170,7 @@ export default function Body() {
         className="absolute cursor-grab hidden sm:flex items-center flex-col"
         style={{
           top: icons.projects.top,
-          right: icons.projects.right,
+          right: icons.projects.right, 
         }}
         onMouseDown={(e) => onMouseDownIcon(e, "projects")}
         onDoubleClick={() => dispatch(finderToggle())}
