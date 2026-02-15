@@ -173,8 +173,8 @@ useEffect(() => {
 
         {/* Right Side */}
         <div className="flex items-center gap-1">
-          <div className="flex items-center gap-0.5 pr-2">
-            
+          <div className="items-center gap-0.5 pr-2  hidden sm:flex">
+
             {/* Dynamic Wifi Icon */}
             {isWifiConnected && (
               <div className="relative">
