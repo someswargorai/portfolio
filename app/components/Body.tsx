@@ -8,14 +8,12 @@ export default function Body() {
   const { wallpaper } = useAppSelector((state) => state.wallpaper);
   const dispatch = useAppDispatch();
 
-  // 🔥 Reusable drag states for 3 icons
   const [icons, setIcons] = useState({
     projects: { top: 280, right: 48, dragging: false, offset: { x: 0, y: 0 } },
     getirnow: { top: 40, right: 40, dragging: false, offset: { x: 0, y: 0 } },
     pingme: { top: 160, right: 40, dragging: false, offset: { x: 0, y: 0 } },
   });
 
-  // 🔥 Start dragging
   const onMouseDownIcon = (
     e: React.MouseEvent<HTMLDivElement>,
     key: keyof typeof icons
@@ -34,7 +32,6 @@ export default function Body() {
     }));
   };
 
-  // 🔥 Drag move & stop listeners
   useEffect(() => {
     const mouseup = () => {
       setIcons((prev) => {
@@ -58,7 +55,6 @@ export default function Body() {
           const newRight =
             window.innerWidth - e.clientX - updated[key].offset.x;
 
-          // constraints
           const maxTop = window.innerHeight - 0;
           const maxRight = window.innerWidth - 0;
 
@@ -82,7 +78,7 @@ export default function Body() {
   return (
     <div
       className="
-        h-[calc(100vh-40px)]
+        h-[calc(100vh)]
         overflow-y-auto
         flex flex-col items-center justify-center text-center
         px-6 select-none

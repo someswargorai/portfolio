@@ -123,7 +123,7 @@ export default function FinderWindow() {
         <div className="flex-1"></div>
       </div>
 
-      <div className="flex h-[440px] overflow-y-auto">
+      <div className="flex">
         <aside className="hidden md:block w-60 bg-white/50 border-r border-white/30 px-4 py-6 space-y-6">
           <div>
             <p className="text-xs font-semibold text-gray-400 mb-2">
@@ -201,7 +201,7 @@ export default function FinderWindow() {
 
         <div className="flex-1 p-8 flex gap-10">
           {currentSection === "work" ? (
-            <div className="grid grid-cols-3 gap-8 ">
+            <div className="grid grid-cols-3 gap-8 h-[400px]">
               {projects.map((p) => (
                 <div
                   key={p.name}
@@ -271,7 +271,7 @@ export default function FinderWindow() {
           ) : (
             <div>
               <p className="font-semibold text-xl mb-2">About Me 👨‍💻</p>
-              <div className="text-gray-700 text-sm leading-relaxed space-y-3">
+              <div className="text-gray-700 text-sm leading-relaxed space-y-3 overflow-y-auto h-[360px] [&::-webkit-scrollbar]:w-1">
                 <p>
                   I am a B.Tech CSE Engineer with 1.2 years of experience in
                   full-stack web development. I enjoy turning ideas into clean,
