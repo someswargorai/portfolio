@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: portfolio
-          image: your-dockerhub-username/portfolio:latest
+          image: somgorai726/portfolio:v2
           ports:
             - containerPort: 3000
           env:
