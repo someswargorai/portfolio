@@ -8,6 +8,7 @@ import { Send, Terminal as TerminalIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from 'react-markdown';
 
+
 const GEMINI_API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 
 if (!GEMINI_API_KEY) {
