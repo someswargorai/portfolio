@@ -15,6 +15,7 @@ spec:
       containers:
         - name: portfolio
           image: somgorai726/portfolio:v2
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000
           env:
