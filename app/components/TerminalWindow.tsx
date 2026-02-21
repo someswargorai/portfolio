@@ -1,4 +1,5 @@
 "use client";
+export const dynamic = 'force-dynamic'
 
 import { GoogleGenAI } from "@google/genai";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hook";
@@ -7,15 +8,6 @@ import { clickedZIndex } from "@/redux/slices/zIndexSlice";
 import { Send, Terminal as TerminalIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from 'react-markdown';
-
-
-const GEMINI_API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-
-if (!GEMINI_API_KEY) {
-  console.warn("[Terminal] GEMINI_API_KEY missing → responses disabled");
-}
-
-const genAI = new GoogleGenAI({ apiKey: GEMINI_API_KEY || "" });
 
 const SYSTEM_INSTRUCTION = `
 You are Som — a Software Developer with 1.5 years of professional experience.
@@ -118,6 +110,16 @@ Render time: 6ms
 const handleSubmit = async () => {
   const command = input.trim();
   if (!command || isLoading) return;
+
+  if (!process.env.NEXT_PUBLIC_GEMINI_API_KEY) {
+    setDisplayHistory((prev) => [
+      ...prev,
+      { type: "error", content: "Gemini API key not configured." },
+    ]);
+    return;
+  }
+
+  const genAI = new GoogleGenAI({ apiKey: process.env.NEXT_PUBLIC_GEMINI_API_KEY });
 
   setDisplayHistory((prev) => [...prev, { type: "command", content: command }]);
   setInput("");
