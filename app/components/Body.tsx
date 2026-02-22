@@ -103,7 +103,7 @@ export default function Body() {
         <span className="font-semibold text-black hover:text-purple-600 transition">
           Someswar
         </span>{" "}
-        👋👋 Welcome to my 
+        👋 Welcome to my 
       </h5>
 
       <h1
