@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🍎 macOS UI Portfolio
 
-## Getting Started
+An interactive developer portfolio designed to replicate the experience of using macOS inside the browser. Instead of navigating through traditional webpages, visitors explore the portfolio through a desktop environment with draggable windows, a dock, and application-like interactions.
 
-First, run the development server:
+The goal of this project is to showcase frontend engineering skills, UI architecture, and creative interface design by transforming a standard portfolio into a fully interactive operating system-style experience.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+✨ Features
+🖥 Desktop Interface
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The landing screen mimics a macOS desktop environment with icons representing different sections of the portfolio.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+🪟 Window Management
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Content opens inside interactive draggable windows, similar to native macOS applications.
 
-## Learn More
+Users can:
 
-To learn more about Next.js, take a look at the following resources:
+Open multiple windows
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Drag windows across the screen
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Minimize or close windows
 
-## Deploy on Vercel
+Switch between sections seamlessly
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+🚀 Dock Navigation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+A bottom dock inspired by macOS allows quick access to different portfolio sections such as:
+
+About
+
+Projects
+
+Resume
+
+Contact
+
+GitHub
+
+🎯 Interactive Navigation
+
+Each section of the portfolio behaves like an application window rather than a static page.
+
+Example:
+
+Projects → Opens Projects Window
+About → Opens Profile Window
+Resume → Opens Resume Viewer
+Contact → Opens Contact App
+🎨 macOS Inspired UI Elements
+
+The interface includes:
+
+macOS window controls (close / minimize / maximize)
+
+Desktop icons
+
+Dock hover animations
+
+Top menu bar
+
+Smooth window transitions
+
+🛠 Tech Stack
+
+This project is built using modern frontend technologies.
+
+React – Component based UI architecture
+
+Next.js – Routing and optimized rendering
+
+TypeScript – Type safety and scalability
+
+CSS – Custom styling for macOS inspired interface
